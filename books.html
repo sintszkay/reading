@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三冊讀記 · 在隨機性中尋找可控</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Noto+Serif+TC:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4f1ea;        /* 米白紙底 */
+  --paper-2:#ece7db;      /* 淺麻 */
+  --card:#faf8f3;         /* 卡片紙 */
+  --line:#ddd6c6;         /* 細線 */
+  --line-soft:#e6e0d3;
+  --ink:#413d35;          /* 柔和炭灰 (非純黑) */
+  --ink-mid:#6b6557;
+  --ink-soft:#938c7c;     /* 淺灰麻 */
+  --clay:#a8624e;         /* MUJI 暗磚紅 · 極克制使用 */
+  --kraft:#b09877;        /* 原木牛皮 */
+  --sage:#909479;         /* 苔綠 */
+  --slate:#8c95a0;        /* 灰藍 */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Serif TC","Zen Kaku Gothic New",serif;
+  font-weight:300;
+  line-height:2;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+/* 極淡紙張纖維質感 */
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:3;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.sans{font-family:"Zen Kaku Gothic New",sans-serif}
+.kicker{
+  font-family:"Zen Kaku Gothic New",sans-serif;
+  font-size:.7rem;letter-spacing:.5em;text-transform:uppercase;
+  color:var(--ink-soft);font-weight:400;
+}
+em.lit{font-style:normal;color:var(--clay);font-weight:400}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px clamp(20px,5vw,64px);
+  background:linear-gradient(to bottom,rgba(244,241,234,.95),rgba(244,241,234,0));
+}
+nav .brand{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:500;font-size:1rem;letter-spacing:.18em;color:var(--ink)}
+nav .brand span{color:var(--clay)}
+nav .links{display:flex;gap:clamp(12px,2vw,32px);font-family:"Zen Kaku Gothic New",sans-serif;font-size:.72rem;letter-spacing:.18em}
+nav .links a{color:var(--ink-soft);text-decoration:none;transition:color .4s}
+nav .links a:hover{color:var(--clay)}
+@media(max-width:640px){nav .links{display:none}}
+
+/* ---------- hero ---------- */
+header.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:0 clamp(20px,8vw,140px);position:relative;
+}
+.hero .eyebrow{margin-bottom:38px;opacity:0;animation:rise 1.1s .1s forwards}
+.hero h1{
+  font-family:"Zen Kaku Gothic New",sans-serif;font-weight:300;
+  font-size:clamp(2.6rem,9vw,7rem);line-height:1.08;letter-spacing:.02em;color:var(--ink);
+}
+.hero h1 .l1{display:block;opacity:0;animation:rise 1.2s .25s forwards}
+.hero h1 .l2{display:block;font-weight:500;opacity:0;animation:rise 1.2s .42s forwards}
+.hero h1 .l2 i{font-style:normal;color:var(--clay)}
+.hero .sub{
+  max-width:580px;margin-top:44px;font-size:1.1rem;color:var(--ink-mid);font-weight:300;line-height:2;
+  opacity:0;animation:rise 1.2s .62s forwards;
+}
+.hero .sub b{color:var(--ink);font-weight:500}
+.hero .index{
+  margin-top:68px;display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--line);
+  opacity:0;animation:rise 1.2s .82s forwards;
+}
+.hero .index a{
+  flex:1;min-width:180px;padding:26px 28px 26px 0;text-decoration:none;color:var(--ink);
+  border-right:1px solid var(--line);transition:padding-left .45s,background .45s;
+}
+.hero .index a:last-child{border-right:none}
+.hero .index a:hover{padding-left:14px;background:rgba(176,152,119,.07)}
+.hero .index .no{font-family:"JetBrains Mono",monospace;font-size:.66rem;color:var(--ink-soft);letter-spacing:.22em}
+.hero .index .ti{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:500;font-size:1.1rem;margin-top:10px;line-height:1.4}
+.hero .index .au{font-size:.78rem;color:var(--ink-soft);margin-top:4px;font-family:"JetBrains Mono",monospace;letter-spacing:.02em}
+.scrollcue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-family:"JetBrains Mono",monospace;font-size:.6rem;letter-spacing:.32em;color:var(--ink-soft);opacity:0;animation:rise 1s 1.1s forwards,float 2.6s 1.6s ease-in-out infinite}
+
+/* ---------- section ---------- */
+section.chapter{padding:clamp(72px,11vh,150px) clamp(20px,8vw,140px);position:relative;border-top:1px solid var(--line-soft)}
+.chap-head{display:flex;align-items:baseline;gap:30px;margin-bottom:16px;flex-wrap:wrap}
+.chap-num{font-family:"Zen Kaku Gothic New",sans-serif;font-size:clamp(2rem,6vw,4rem);font-weight:300;color:var(--kraft);line-height:1;opacity:.7}
+.chap-title{font-family:"Zen Kaku Gothic New",sans-serif;font-size:clamp(1.7rem,4.4vw,3.1rem);font-weight:500;line-height:1.2;letter-spacing:.02em}
+.chap-meta{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.1em;color:var(--ink-soft);margin:20px 0 46px;max-width:680px;line-height:2}
+.lede{font-size:1.28rem;font-weight:300;line-height:1.9;max-width:760px;color:var(--ink);margin-bottom:6px}
+.lede b{color:var(--clay);font-weight:500}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 1.1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+.prose{max-width:720px;font-size:1.02rem;color:var(--ink-mid);margin-top:28px}
+.prose strong{color:var(--ink);font-weight:600}
+
+/* cards */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:58px}
+@media(max-width:860px){.grid3{grid-template-columns:1fr}}
+.card{
+  background:var(--card);border:1px solid var(--line);padding:36px 32px;position:relative;
+  transition:transform .55s,border-color .55s;border-radius:3px;
+}
+.card:hover{transform:translateY(-5px);border-color:var(--kraft)}
+.card .pill-no{font-family:"Zen Kaku Gothic New",sans-serif;font-size:2.6rem;font-weight:300;color:var(--kraft);line-height:1}
+.card h3{font-family:"Zen Kaku Gothic New",sans-serif;font-size:1.35rem;font-weight:500;margin:16px 0 4px;letter-spacing:.03em}
+.card .en{font-family:"JetBrains Mono",monospace;font-size:.64rem;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:18px}
+.card p{font-size:.94rem;color:var(--ink-mid);line-height:1.9}
+.card .metric{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);font-family:"JetBrains Mono",monospace;font-size:.7rem;color:var(--kraft);letter-spacing:.04em}
+
+/* diagram layout */
+.diagram-wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:54px;align-items:center;margin-top:62px}
+@media(max-width:860px){.diagram-wrap{grid-template-columns:1fr;gap:34px}}
+.flywheel{width:100%;max-width:430px;margin:0 auto;display:block}
+.flywheel .rot{transform-origin:230px 230px;animation:spin 48s linear infinite}
+.note-block{border-left:2px solid var(--kraft);padding:4px 0 4px 26px}
+.note-block .nb-k{font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.18em;color:var(--ink-soft);text-transform:uppercase}
+.note-block p{margin-top:12px;color:var(--ink-mid);font-size:1rem;line-height:1.95}
+.note-block p strong{color:var(--ink);font-weight:500}
+
+/* darvas */
+.darvas{width:100%;max-width:520px;display:block;margin:0 auto}
+.stages{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;border:1px solid var(--line);background:var(--card);border-radius:3px;overflow:hidden}
+@media(max-width:760px){.stages{grid-template-columns:1fr 1fr}}
+.stage{padding:28px 24px;border-right:1px solid var(--line);transition:background .45s}
+.stage:last-child{border-right:none}
+.stage:hover{background:var(--paper-2)}
+@media(max-width:760px){.stage:nth-child(2n){border-right:none}.stage:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.stage .s-no{font-family:"JetBrains Mono",monospace;font-size:.66rem;color:var(--slate);letter-spacing:.18em}
+.stage h4{font-family:"Zen Kaku Gothic New",sans-serif;font-size:1.1rem;font-weight:500;margin:12px 0 8px;letter-spacing:.03em}
+.stage p{font-size:.84rem;color:var(--ink-mid);line-height:1.8}
+.rule-row{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:42px}
+@media(max-width:760px){.rule-row{grid-template-columns:1fr}}
+.rule{border:1px solid var(--line);padding:30px;background:var(--card);border-radius:3px}
+.rule .rk{font-family:"JetBrains Mono",monospace;font-size:.66rem;letter-spacing:.16em;color:var(--slate);text-transform:uppercase}
+.rule h4{font-family:"Zen Kaku Gothic New",sans-serif;font-size:1.22rem;margin:12px 0 10px;font-weight:500;letter-spacing:.03em}
+.rule p{color:var(--ink-mid);font-size:.96rem;line-height:1.9}
+
+/* luck quadrant */
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:56px}
+@media(max-width:760px){.quad{grid-template-columns:1fr}}
+.qcard{border:1px solid var(--line);padding:32px;background:var(--card);border-radius:3px;transition:transform .55s,border-color .55s}
+.qcard:hover{transform:translateY(-4px);border-color:var(--sage)}
+.qcard .qn{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:500;font-size:.95rem;color:var(--sage);letter-spacing:.1em}
+.qcard h3{font-family:"Zen Kaku Gothic New",sans-serif;font-size:1.35rem;font-weight:500;margin:8px 0 4px;letter-spacing:.03em}
+.qcard .qen{font-family:"JetBrains Mono",monospace;font-size:.62rem;letter-spacing:.1em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:16px}
+.qcard ul{list-style:none}
+.qcard li{font-size:.9rem;color:var(--ink-mid);padding-left:18px;position:relative;margin-bottom:8px;line-height:1.7}
+.qcard li::before{content:"–";position:absolute;left:0;color:var(--sage)}
+
+/* experiment */
+.experiment{margin-top:52px;border:1px solid var(--line);padding:clamp(28px,4vw,52px);background:var(--card);border-radius:3px}
+.experiment .xk{font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.22em;color:var(--sage);text-transform:uppercase}
+.experiment h3{font-family:"Zen Kaku Gothic New",sans-serif;font-size:clamp(1.4rem,3.2vw,2rem);font-weight:400;margin:16px 0 20px;line-height:1.4;letter-spacing:.02em}
+.experiment .xgrid{display:grid;grid-template-columns:auto 1fr;gap:24px 38px;align-items:start;margin-top:22px}
+@media(max-width:640px){.experiment .xgrid{grid-template-columns:1fr}}
+.experiment .stat{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:300;font-size:2.4rem;color:var(--clay);line-height:1;white-space:nowrap}
+.experiment .stat small{font-size:.78rem;color:var(--ink-soft);display:block;font-family:"JetBrains Mono",monospace;letter-spacing:.08em;margin-top:8px}
+.experiment p{color:var(--ink-mid);font-size:1rem;line-height:1.9}
+.experiment p strong{color:var(--ink);font-weight:500}
+
+/* tension / caveat */
+.tension{margin-top:42px;border:1px solid var(--line);border-left:3px solid var(--clay);padding:32px 34px;background:var(--card);border-radius:3px}
+.tension.slate{border-left-color:var(--slate)}
+.tension .tk{font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.2em;color:var(--clay);text-transform:uppercase}
+.tension.slate .tk{color:var(--slate)}
+.tension h4{font-family:"Zen Kaku Gothic New",sans-serif;font-size:1.3rem;margin:12px 0 12px;font-weight:500;letter-spacing:.02em}
+.tension p{color:var(--ink-mid);font-size:1rem;line-height:1.95}
+.tension p b{color:var(--clay);font-weight:500}
+
+/* synthesis */
+section.synth{padding:clamp(80px,13vh,160px) clamp(20px,8vw,140px);background:var(--paper-2);border-top:1px solid var(--line)}
+.loopwrap{display:grid;grid-template-columns:1fr 1fr;gap:62px;align-items:center;margin-top:66px}
+@media(max-width:920px){.loopwrap{grid-template-columns:1fr;gap:42px}}
+.loop-svg{width:100%;max-width:440px;margin:0 auto;display:block}
+.loop-step{margin-bottom:28px;padding-left:26px;border-left:1px solid var(--line);transition:border-color .45s}
+.loop-step:hover{border-color:var(--kraft)}
+.loop-step .ls-tag{font-family:"JetBrains Mono",monospace;font-size:.66rem;letter-spacing:.14em;color:var(--ink-soft);text-transform:uppercase}
+.loop-step h4{font-family:"Zen Kaku Gothic New",sans-serif;font-size:1.25rem;font-weight:500;margin:8px 0 6px;letter-spacing:.02em}
+.loop-step .ls-src{font-family:"JetBrains Mono",monospace;font-size:.64rem;color:var(--kraft);letter-spacing:.06em}
+.loop-step p{color:var(--ink-mid);font-size:.94rem;margin-top:10px;line-height:1.85}
+
+.closing{max-width:780px;margin:84px auto 0;text-align:center}
+.closing .ck{margin-bottom:26px}
+.closing blockquote{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:300;font-size:clamp(1.4rem,3.2vw,2.2rem);line-height:1.7;color:var(--ink);letter-spacing:.02em}
+.closing blockquote b{color:var(--clay);font-weight:500}
+
+footer{padding:54px clamp(20px,8vw,140px);border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-family:"JetBrains Mono",monospace;font-size:.66rem;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase}
+
+@keyframes rise{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">三冊讀記 <span>·</span> 隨機性</div>
+  <div class="links">
+    <a href="#quality">I 質量投資</a>
+    <a href="#darvas">II 達華斯</a>
+    <a href="#luck">III 運氣因子</a>
+    <a href="#synth">綜合</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="eyebrow kicker">Reading Notes · 三本書 · 一條暗線</div>
+  <h1 class="sans">
+    <span class="l1">在隨機性中</span>
+    <span class="l2">尋找<i>可控</i></span>
+  </h1>
+  <p class="sub">
+    三本看似無關的書 —— 一本講<b>企業質量</b>、一本講<b>動能交易</b>、一本講<b>運氣的科學</b> ——
+    其實都在回答同一個問題：當世界無法預測時，哪一部分仍握在你手裡？
+  </p>
+  <div class="index">
+    <a href="#quality"><div class="no">I / QUALITY</div><div class="ti">質量投資</div><div class="au">Cunningham · Eide · Hargreaves</div></a>
+    <a href="#darvas"><div class="no">II / MOMENTUM</div><div class="ti">我如何賺到 200 萬</div><div class="au">Nicolas Darvas</div></a>
+    <a href="#luck"><div class="no">III / LUCK</div><div class="ti">運氣因子</div><div class="au">Richard Wiseman</div></a>
+  </div>
+  <div class="scrollcue">↓ SCROLL</div>
+</header>
+
+<!-- I QUALITY -->
+<section class="chapter" id="quality">
+  <div class="reveal">
+    <div class="chap-head">
+      <span class="chap-num sans">01</span>
+      <h2 class="chap-title sans">質量投資 —— 複利的飛輪</h2>
+    </div>
+    <div class="chap-meta">QUALITY INVESTING · CUNNINGHAM / EIDE / HARGREAVES · 2016 · AKO CAPITAL</div>
+    <p class="lede">與葛拉漢式「便宜買入」相反：<b>以合理價買入卓越企業，遠勝以便宜價買入平庸企業。</b>長期回報的來源是「質量」而非折價。</p>
+  </div>
+
+  <div class="grid3">
+    <div class="card reveal">
+      <div class="pill-no sans">01</div>
+      <h3 class="sans">現金生成</h3>
+      <div class="en">Cash Generation</div>
+      <p>強調自由現金流而非會計盈利——現金難被操縱。關鍵修飾詞是「<em class="lit">可預測</em>」：黏性的經常性收入、輕資產、高現金轉化率。</p>
+      <div class="metric">FCF / 淨利 ≥ 100% · FCF Margin ↑</div>
+    </div>
+    <div class="card reveal">
+      <div class="pill-no sans">02</div>
+      <h3 class="sans">資本回報</h3>
+      <div class="en">Returns on Capital</div>
+      <p>ROIC 須<strong style="color:var(--ink);font-weight:500">持續</strong>高於資本成本才創造價值。「持續」二字等同護城河——品牌、轉換成本、網絡效應、規模阻止競爭抹平超額回報。</p>
+      <div class="metric">ROIC &gt; WACC · 持續 5–10 年</div>
+    </div>
+    <div class="card reveal">
+      <div class="pill-no sans">03</div>
+      <h3 class="sans">成長機會</h3>
+      <div class="en">Growth Opportunities</div>
+      <p>把高回報現金再投入同樣高回報的項目，才是複利引擎。區分「好成長」(有機) 與「壞成長」(靠併購堆營收)。</p>
+      <div class="metric">再投資率 × 增量ROIC = 內生複利</div>
+    </div>
+  </div>
+
+  <div class="diagram-wrap reveal">
+    <svg class="flywheel" viewBox="0 0 460 460" aria-label="質量飛輪">
+      <defs>
+        <marker id="ah" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#b09877"/></marker>
+      </defs>
+      <circle cx="230" cy="230" r="200" fill="none" stroke="#ddd6c6" stroke-width="1"/>
+      <g class="rot">
+        <circle cx="230" cy="230" r="150" fill="none" stroke="#cfc6b1" stroke-width="1.2" stroke-dasharray="2 10"/>
+        <path d="M230 80 A150 150 0 0 1 360 305" fill="none" stroke="#b09877" stroke-width="1.4" marker-end="url(#ah)" opacity=".7"/>
+        <path d="M360 305 A150 150 0 0 1 100 305" fill="none" stroke="#b09877" stroke-width="1.4" marker-end="url(#ah)" opacity=".7"/>
+        <path d="M100 305 A150 150 0 0 1 230 80" fill="none" stroke="#b09877" stroke-width="1.4" marker-end="url(#ah)" opacity=".7"/>
+      </g>
+      <g text-anchor="middle" font-family="Zen Kaku Gothic New, sans-serif">
+        <circle cx="230" cy="80" r="44" fill="#faf8f3" stroke="#b09877" stroke-width="1.4"/>
+        <text x="230" y="76" fill="#413d35" font-size="16" font-weight="500">護城河</text>
+        <text x="230" y="95" fill="#938c7c" font-size="10" font-family="JetBrains Mono">moat</text>
+        <circle cx="360" cy="305" r="44" fill="#faf8f3" stroke="#b09877" stroke-width="1.4"/>
+        <text x="360" y="301" fill="#413d35" font-size="16" font-weight="500">現金</text>
+        <text x="360" y="320" fill="#938c7c" font-size="10" font-family="JetBrains Mono">cash</text>
+        <circle cx="100" cy="305" r="44" fill="#faf8f3" stroke="#b09877" stroke-width="1.4"/>
+        <text x="100" y="301" fill="#413d35" font-size="15" font-weight="500">再投資</text>
+        <text x="100" y="320" fill="#938c7c" font-size="10" font-family="JetBrains Mono">reinvest</text>
+        <text x="230" y="226" fill="#a8624e" font-size="12" font-family="JetBrains Mono" letter-spacing="2">QUALITY</text>
+        <text x="230" y="248" fill="#a8624e" font-size="12" font-family="JetBrains Mono" letter-spacing="2">FLYWHEEL</text>
+      </g>
+    </svg>
+    <div class="note-block">
+      <div class="nb-k">飛輪邏輯 · The Flywheel</div>
+      <p>護城河保護<strong>高回報</strong>；高回報轉為<strong>可預測的真實現金</strong>；現金再投入受同一護城河保護的<strong>成長</strong>；成長又進一步加深護城河。</p>
+      <p>缺一根支柱，飛輪就停：有現金無護城河 → 回報被競爭侵蝕；有護城河無再投資 → 只是穩定現金牛；有成長但回報低於資本成本 → 邊成長邊毀滅價值。</p>
+    </div>
+  </div>
+</section>
+
+<!-- II DARVAS -->
+<section class="chapter" id="darvas">
+  <div class="reveal">
+    <div class="chap-head">
+      <span class="chap-num sans">02</span>
+      <h2 class="chap-title sans">達華斯 —— 箱型與紀律</h2>
+    </div>
+    <div class="chap-meta">HOW I MADE $2,000,000 IN THE STOCK MARKET · NICOLAS DARVAS · 1960 · 一位環球巡演的舞者</div>
+    <p class="lede">沒有所謂好股壞股，<b>只有正在漲的股和正在跌的股。</b>用基本面選股，用技術面擇時，兩者互相驗證才出手。</p>
+  </div>
+
+  <div class="diagram-wrap reveal">
+    <svg class="darvas" viewBox="0 0 520 360" aria-label="達華斯箱型">
+      <defs>
+        <marker id="up" markerWidth="9" markerHeight="9" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#a8624e"/></marker>
+      </defs>
+      <line x1="40" y1="20" x2="40" y2="330" stroke="#cfc6b1" stroke-width="1"/>
+      <line x1="40" y1="330" x2="500" y2="330" stroke="#cfc6b1" stroke-width="1"/>
+      <text x="30" y="30" fill="#938c7c" font-size="9" font-family="JetBrains Mono" text-anchor="end" transform="rotate(-90 30 30)">PRICE</text>
+      <g stroke="#8c95a0" stroke-width="1" fill="rgba(140,149,160,.08)">
+        <rect x="70" y="250" width="110" height="60"/>
+        <rect x="210" y="170" width="110" height="60"/>
+        <rect x="350" y="80" width="110" height="60"/>
+      </g>
+      <path d="M70 313 L180 313 L210 233 L320 233 L350 143 L460 143" fill="none" stroke="#a8624e" stroke-width="1.3" stroke-dasharray="5 5" opacity=".8"/>
+      <text x="466" y="146" fill="#a8624e" font-size="9" font-family="JetBrains Mono">移動停損</text>
+      <path d="M70 300 Q110 255 125 280 T180 265 L210 230 Q250 185 265 205 T320 188 L350 150 Q390 100 405 120 T460 95" fill="none" stroke="#b09877" stroke-width="2"/>
+      <line x1="180" y1="252" x2="210" y2="232" stroke="#a8624e" stroke-width="1.5" marker-end="url(#up)"/>
+      <line x1="320" y1="172" x2="350" y2="142" stroke="#a8624e" stroke-width="1.5" marker-end="url(#up)"/>
+      <text x="125" y="245" fill="#938c7c" font-size="9" font-family="JetBrains Mono" text-anchor="middle">箱 1</text>
+      <text x="265" y="165" fill="#938c7c" font-size="9" font-family="JetBrains Mono" text-anchor="middle">箱 2</text>
+      <text x="405" y="75" fill="#938c7c" font-size="9" font-family="JetBrains Mono" text-anchor="middle">箱 3</text>
+      <text x="225" y="150" fill="#a8624e" font-size="9" font-family="JetBrains Mono">帶量突破</text>
+      <text x="500" y="345" fill="#938c7c" font-size="9" font-family="JetBrains Mono" text-anchor="end">TIME →</text>
+    </svg>
+    <div class="note-block">
+      <div class="nb-k">箱型理論 · The Darvas Box</div>
+      <p>股價在一個個「箱子」裡震盪。<strong>帶量突破箱頂、進入更高的新箱子</strong>＝買進訊號；箱子層層墊高。</p>
+      <p>用你的語言：箱子＝<em class="lit">trading range</em>，突破＝<em class="lit">BOS</em>，層層墊高＝一連串 <em class="lit">HH / HL</em>。Darvas 在 1950 年代就直覺畫出了 price action。只買創新高——這正是<strong>動能因子</strong>的雛形。</p>
+    </div>
+  </div>
+
+  <div class="stages reveal">
+    <div class="stage"><div class="s-no">STAGE 01</div><h4 class="sans">賭徒期</h4><p>靠明牌、內幕、感覺買進。本質是賭博，運氣好賺了錢從此上癮。</p></div>
+    <div class="stage"><div class="s-no">STAGE 02</div><h4 class="sans">基本面迷信</h4><p>勤讀財報聽券商，卻發現資訊永遠滯後、早被內部人消化。</p></div>
+    <div class="stage"><div class="s-no">STAGE 03</div><h4 class="sans">技術面期</h4><p>轉向只看價格與量，發明箱型理論。不預測只反應。</p></div>
+    <div class="stage"><div class="s-no">STAGE 04</div><h4 class="sans">技術-基本綜合</h4><p>成熟形態：基本面選股、技術面擇時，互相驗證才出手。</p></div>
+  </div>
+
+  <div class="rule-row reveal">
+    <div class="rule">
+      <div class="rk">紀律 · Rule</div>
+      <h4 class="sans">截斷虧損，讓利潤奔跑</h4>
+      <p>進場同步設好停損單，從不「再等等看」。觸及停損當天認賠，絕不討價還價。</p>
+    </div>
+    <div class="rule">
+      <div class="rk">紀律 · Rule</div>
+      <h4 class="sans">移動停損</h4>
+      <p>價格爬進新箱，停損上移到新箱底下方——鎖住紙上利潤，同時保留上漲空間。</p>
+    </div>
+  </div>
+
+  <div class="tension slate reveal">
+    <div class="tk">資訊隔離 · 最被低估的一課</div>
+    <h4 class="sans">距離強迫了客觀</h4>
+    <p>當 Darvas 人在華爾街、聽得到場內耳語時，他反而虧錢——他稱之為 <em class="lit">ticker fever</em>。被迫只靠每日電報與每週滯後報紙時，噪音被切斷，只剩價格與規則。<b>多數人虧錢不是資訊太少，而是資訊太多、行動太頻繁、情緒太滿。</b></p>
+  </div>
+
+  <div class="tension reveal">
+    <div class="tk">須誠實看待的局限 · Caveats</div>
+    <h4 class="sans">牛市的倖存者</h4>
+    <p>1957–59 是戰後最強的成長股牛市，突破策略在強趨勢威力驚人，但震盪盤會被假突破反覆「鋸」傷。200 萬的金額構成當年也曾被檢方調查——當勵志包裝、而非精確會計來讀比較安全。</p>
+  </div>
+</section>
+
+<!-- III LUCK -->
+<section class="chapter" id="luck">
+  <div class="reveal">
+    <div class="chap-head">
+      <span class="chap-num sans">03</span>
+      <h2 class="chap-title sans">運氣因子 —— 可學習的好運</h2>
+    </div>
+    <div class="chap-meta">THE LUCK FACTOR · RICHARD WISEMAN · 2003 · 400+ 名自認幸運／不幸者的三年研究</div>
+    <p class="lede">運氣不是隨機降臨的外力，而是<b>一組可學習的行為與思維模式的副產品。</b>注意：研究的是「自我認定」的運氣，而非客觀運氣。</p>
+  </div>
+
+  <div class="experiment reveal">
+    <div class="xk">招牌實驗 · The Newspaper Test</div>
+    <h3 class="sans">「別數了——這份報紙裡有 43 張照片」</h3>
+    <div class="xgrid">
+      <div class="stat sans">~2 min<small>不幸組 · 埋頭數到最後</small></div>
+      <p>兩組人被要求數報紙裡的照片。第二頁用半版超過 5 公分高的大字寫著答案，中段還有「停止計數即可贏 250 美元」的訊息。</p>
+      <div class="stat sans">幾秒<small>幸運組 · 看見了大字</small></div>
+      <p>不幸的人因太專注「尋找照片」而對眼前機會視而不見；幸運的人看見「實際存在的東西」，因此對自然浮現的機會更敏感。幸運者的<strong>神經質分數明顯較低</strong>——焦慮收窄注意力，放鬆擴大感知頻寬。</p>
+    </div>
+  </div>
+
+  <div class="quad reveal">
+    <div class="qcard">
+      <div class="qn sans">原則一</div>
+      <h3 class="sans">最大化機會偶遇</h3>
+      <div class="qen">Maximise Chance Opportunities</div>
+      <ul><li>建立並維繫廣而鬆的人脈網（弱連結邏輯）</li><li>保持放鬆——焦慮讓你看不見機會</li><li>對新體驗保持開放</li></ul>
+    </div>
+    <div class="qcard">
+      <div class="qn sans">原則二</div>
+      <h3 class="sans">傾聽幸運的直覺</h3>
+      <div class="qen">Listen to Lucky Hunches</div>
+      <ul><li>聽從直覺與預感做決定</li><li>用冥想、清空雜念主動培養直覺</li></ul>
+    </div>
+    <div class="qcard">
+      <div class="qn sans">原則三</div>
+      <h3 class="sans">期待好運</h3>
+      <div class="qen">Expect Good Fortune</div>
+      <ul><li>相信好運會延續</li><li>勝算渺茫也願嘗試、失敗後堅持</li><li>預期互動順利——自我實現的預言</li></ul>
+    </div>
+    <div class="qcard">
+      <div class="qn sans">原則四</div>
+      <h3 class="sans">把厄運轉化為好運</h3>
+      <div class="qen">Turn Bad Luck into Good</div>
+      <ul><li>看見壞事的正面意義（逆事實思考）</li><li>相信長遠會往好的方向發展</li><li>不沉溺於不幸</li><li>採取建設性步驟防止再發生</li></ul>
+    </div>
+  </div>
+
+  <div class="tension reveal">
+    <div class="tk">讀這本書必須踩的煞車 · The Tension</div>
+    <h4 class="sans">該信直覺的是「要不要去酒會」，不是「要不要追高突破」</h4>
+    <p>原則二「相信直覺」與系統化交易<b>直接衝突</b>。在低效回饋、高隨機性的市場裡，直覺往往是偏誤的溫床。Wiseman 的直覺適用於人際與機會察覺（有豐富即時回饋的領域）；搬到進出場，它會撞上你的箱型紀律與四條件系統。<b>把這兩個場域分清楚，是讀這本書最關鍵的一刀。</b></p>
+  </div>
+</section>
+
+<!-- SYNTHESIS -->
+<section class="synth" id="synth">
+  <div class="reveal">
+    <div class="kicker" style="margin-bottom:20px">SYNTHESIS · 三書合一</div>
+    <h2 class="chap-title sans" style="max-width:780px">三本書拼成一個<em class="lit">應對隨機性</em>的閉環</h2>
+    <p class="lede" style="margin-top:24px">你無法控制單一結果，但能控制過程、曝險與心態，長期下來偏移整條期望值曲線。</p>
+  </div>
+
+  <div class="loopwrap reveal">
+    <svg class="loop-svg" viewBox="0 0 420 420" aria-label="應對隨機性閉環">
+      <defs>
+        <marker id="la" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#b09877"/></marker>
+      </defs>
+      <circle cx="210" cy="210" r="150" fill="none" stroke="#cfc6b1" stroke-width="1.2" stroke-dasharray="2 9"/>
+      <path d="M210 60 A150 150 0 0 1 340 285" fill="none" stroke="#b09877" stroke-width="1.3" marker-end="url(#la)" opacity=".65"/>
+      <path d="M340 285 A150 150 0 0 1 80 285" fill="none" stroke="#b09877" stroke-width="1.3" marker-end="url(#la)" opacity=".65"/>
+      <path d="M80 285 A150 150 0 0 1 210 60" fill="none" stroke="#b09877" stroke-width="1.3" marker-end="url(#la)" opacity=".65"/>
+      <g text-anchor="middle" font-family="Zen Kaku Gothic New, sans-serif">
+        <circle cx="210" cy="60" r="48" fill="#f4f1ea" stroke="#909479" stroke-width="1.4"/>
+        <text x="210" y="56" fill="#413d35" font-size="14" font-weight="500">機會察覺</text>
+        <text x="210" y="74" fill="#909479" font-size="9" font-family="JetBrains Mono">WISEMAN</text>
+        <circle cx="340" cy="285" r="48" fill="#f4f1ea" stroke="#b09877" stroke-width="1.4"/>
+        <text x="340" y="281" fill="#413d35" font-size="14" font-weight="500">決策品質</text>
+        <text x="340" y="299" fill="#b09877" font-size="9" font-family="JetBrains Mono">DUKE</text>
+        <circle cx="80" cy="285" r="48" fill="#f4f1ea" stroke="#8c95a0" stroke-width="1.4"/>
+        <text x="80" y="281" fill="#413d35" font-size="14" font-weight="500">執行紀律</text>
+        <text x="80" y="299" fill="#8c95a0" font-size="9" font-family="JetBrains Mono">DARVAS</text>
+        <text x="210" y="205" fill="#a8624e" font-size="11" font-family="JetBrains Mono" letter-spacing="2">RANDOMNESS</text>
+        <text x="210" y="226" fill="#a8624e" font-size="11" font-family="JetBrains Mono" letter-spacing="2">LOOP</text>
+      </g>
+    </svg>
+    <div>
+      <div class="loop-step"><div class="ls-tag">第一步 · 機會察覺</div><h4 class="sans">放鬆地看見眼前的東西</h4><div class="ls-src">Wiseman / Quality Investing</div><p>降低焦慮、擴大感知頻寬，才能像辨識「質量飛輪」一樣，辨識出真正非對稱的機會。廣撒弱連結＝給人生加掛便宜的選擇權。</p></div>
+      <div class="loop-step"><div class="ls-tag">第二步 · 決策品質</div><h4 class="sans">過程對 ≠ 結果好</h4><div class="ls-src">Annie Duke / Quality Investing</div><p>用三大支柱這類框架判斷「決策本身」是否優質，而非被單次盈虧污染。事前設好 kill criteria，把判斷從情緒手中拿回。</p></div>
+      <div class="loop-step"><div class="ls-tag">第三步 · 執行紀律</div><h4 class="sans">截斷虧損，移動停損</h4><div class="ls-src">Darvas</div><p>把進出場決策機械化、製造資訊距離對抗情緒。讓市場告訴你方向，錯了立刻認、對了抱緊。</p></div>
+      <div class="loop-step"><div class="ls-tag">第四步 · 結果歸因 → 回到察覺</div><h4 class="sans">把厄運轉化，不沉溺</h4><div class="ls-src">Wiseman / Duke</div><p>抽離情緒、檢視可改進處、防止重犯，然後重新回到開放的察覺狀態。閉環完成，下一輪開始。</p></div>
+    </div>
+  </div>
+
+  <div class="closing reveal">
+    <div class="ck kicker">THE THROUGH-LINE</div>
+    <blockquote>「你無法控制單筆交易的結果，<br>但能<b>系統性地改變</b><br>你接觸到好結果的<b>機率分布</b>。」</blockquote>
+  </div>
+</section>
+
+<footer>
+  <span>三冊讀記 · Reading Notes</span>
+  <span>Quality Investing · Darvas · The Luck Factor</span>
+  <span>在隨機性中尋找可控</span>
+</footer>
+
+<script>
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach((e)=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+},{threshold:.12, rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.querySelectorAll('.grid3 .card, .quad .qcard, .stages .stage, .rule-row .rule').forEach((el,i)=>{
+  el.style.transitionDelay = (i%4 * 0.08)+'s';
+});
+</script>
+</body>
+</html>
