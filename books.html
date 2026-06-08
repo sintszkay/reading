@@ -23,7 +23,7 @@
   --slate:#8c95a0;        /* 灰藍 */
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
 body{
   background:var(--paper);
   color:var(--ink);
@@ -95,7 +95,7 @@ header.hero{
 .scrollcue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-family:"JetBrains Mono",monospace;font-size:.6rem;letter-spacing:.32em;color:var(--ink-soft);opacity:0;animation:rise 1s 1.1s forwards,float 2.6s 1.6s ease-in-out infinite}
 
 /* ---------- section ---------- */
-section.chapter{padding:clamp(72px,11vh,150px) clamp(20px,8vw,140px);position:relative;border-top:1px solid var(--line-soft)}
+section.chapter{padding:clamp(72px,11vh,150px) clamp(20px,8vw,140px);position:relative;border-top:1px solid var(--line-soft);scroll-margin-top:72px}
 .chap-head{display:flex;align-items:baseline;gap:30px;margin-bottom:16px;flex-wrap:wrap}
 .chap-num{font-family:"Zen Kaku Gothic New",sans-serif;font-size:clamp(2rem,6vw,4rem);font-weight:300;color:var(--kraft);line-height:1;opacity:.7}
 .chap-title{font-family:"Zen Kaku Gothic New",sans-serif;font-size:clamp(1.7rem,4.4vw,3.1rem);font-weight:500;line-height:1.2;letter-spacing:.02em}
@@ -184,7 +184,7 @@ section.chapter{padding:clamp(72px,11vh,150px) clamp(20px,8vw,140px);position:re
 .tension p b{color:var(--clay);font-weight:500}
 
 /* synthesis */
-section.synth{padding:clamp(80px,13vh,160px) clamp(20px,8vw,140px);background:var(--paper-2);border-top:1px solid var(--line)}
+section.synth{padding:clamp(80px,13vh,160px) clamp(20px,8vw,140px);background:var(--paper-2);border-top:1px solid var(--line);scroll-margin-top:72px}
 .loopwrap{display:grid;grid-template-columns:1fr 1fr;gap:62px;align-items:center;margin-top:66px}
 @media(max-width:920px){.loopwrap{grid-template-columns:1fr;gap:42px}}
 .loop-svg{width:100%;max-width:440px;margin:0 auto;display:block}
@@ -211,30 +211,32 @@ footer{padding:54px clamp(20px,8vw,140px);border-top:1px solid var(--line);displ
 <body>
 
 <nav>
-  <div class="brand">三冊讀記 <span>·</span> 隨機性</div>
+  <div class="brand">四冊讀記 <span>·</span> 隨機性</div>
   <div class="links">
     <a href="#quality">I 質量投資</a>
     <a href="#darvas">II 達華斯</a>
     <a href="#luck">III 運氣因子</a>
+    <a href="#random">IV 隨機騙局</a>
     <a href="#synth">綜合</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <header class="hero">
-  <div class="eyebrow kicker">Reading Notes · 三本書 · 一條暗線</div>
+  <div class="eyebrow kicker">Reading Notes · 四本書 · 一條暗線</div>
   <h1 class="sans">
     <span class="l1">在隨機性中</span>
     <span class="l2">尋找<i>可控</i></span>
   </h1>
   <p class="sub">
-    三本看似無關的書 —— 一本講<b>企業質量</b>、一本講<b>動能交易</b>、一本講<b>運氣的科學</b> ——
-    其實都在回答同一個問題：當世界無法預測時，哪一部分仍握在你手裡？
+    四本看似無關的書 —— 講<b>企業質量</b>、講<b>動能交易</b>、講<b>運氣的科學</b>，
+    最後一本則站出來<b>質疑前三本</b> —— 其實都在回答同一個問題：當世界無法預測時，哪一部分仍握在你手裡？
   </p>
   <div class="index">
     <a href="#quality"><div class="no">I / QUALITY</div><div class="ti">質量投資</div><div class="au">Cunningham · Eide · Hargreaves</div></a>
     <a href="#darvas"><div class="no">II / MOMENTUM</div><div class="ti">我如何賺到 200 萬</div><div class="au">Nicolas Darvas</div></a>
     <a href="#luck"><div class="no">III / LUCK</div><div class="ti">運氣因子</div><div class="au">Richard Wiseman</div></a>
+    <a href="#random"><div class="no">IV / RANDOMNESS</div><div class="ti">隨機騙局</div><div class="au">Nassim Taleb</div></a>
   </div>
   <div class="scrollcue">↓ SCROLL</div>
 </header>
@@ -439,12 +441,107 @@ footer{padding:54px clamp(20px,8vw,140px);border-top:1px solid var(--line);displ
   </div>
 </section>
 
+<!-- IV FOOLED BY RANDOMNESS -->
+<section class="chapter" id="random">
+  <div class="reveal">
+    <div class="chap-head">
+      <span class="chap-num sans">04</span>
+      <h2 class="chap-title sans">隨機騙局 —— 懷疑論的底盤</h2>
+    </div>
+    <div class="chap-meta">FOOLED BY RANDOMNESS · NASSIM TALEB · 2001 · INCERTO 卷一 · 《黑天鵝》的思想母體</div>
+    <p class="lede">前三本都假設「方法能改善結果」，這一本站出來反問：<b>你以為的技能，很大一部分其實是運氣，而你幾乎沒有能力分辨兩者。</b></p>
+  </div>
+
+  <!-- two payoff curves -->
+  <div class="diagram-wrap reveal">
+    <svg class="darvas" viewBox="0 0 520 320" aria-label="兩種偏態的權益曲線">
+      <defs>
+        <marker id="boom" markerWidth="9" markerHeight="9" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#a8624e"/></marker>
+      </defs>
+      <line x1="40" y1="20" x2="40" y2="280" stroke="#cfc6b1" stroke-width="1"/>
+      <line x1="40" y1="280" x2="500" y2="280" stroke="#cfc6b1" stroke-width="1"/>
+      <text x="30" y="28" fill="#938c7c" font-size="9" font-family="JetBrains Mono" text-anchor="end" transform="rotate(-90 30 28)">EQUITY</text>
+      <!-- negative skew: smooth rise then crash to zero -->
+      <path d="M40 250 Q160 215 250 150 T420 70 L430 72 L440 270" fill="none" stroke="#a8624e" stroke-width="2"/>
+      <line x1="440" y1="120" x2="440" y2="262" stroke="#a8624e" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#boom)"/>
+      <text x="300" y="120" fill="#a8624e" font-size="10" font-family="Zen Kaku Gothic New">經常對 · 偶爾錯</text>
+      <text x="448" y="200" fill="#a8624e" font-size="9" font-family="JetBrains Mono">爆倉清零</text>
+      <!-- positive skew: choppy down then big jump -->
+      <path d="M40 200 L80 212 L120 206 L160 220 L200 214 L240 226 L280 220 L320 232 L340 120 L380 132 L460 70" fill="none" stroke="#909479" stroke-width="2"/>
+      <circle cx="340" cy="120" r="3.5" fill="#909479"/>
+      <text x="120" y="250" fill="#909479" font-size="10" font-family="Zen Kaku Gothic New">經常錯 · 偶爾對</text>
+      <text x="386" y="64" fill="#909479" font-size="9" font-family="JetBrains Mono">罕見大行情</text>
+      <text x="500" y="296" fill="#938c7c" font-size="9" font-family="JetBrains Mono" text-anchor="end">TIME →</text>
+    </svg>
+    <div class="note-block">
+      <div class="nb-k">期望值 · Probability × Magnitude</div>
+      <p>Taleb 最核心的技術點：<strong>期望值不是機率，而是機率乘以幅度。</strong>高勝率不等於好策略。</p>
+      <p><span style="color:var(--clay)">負偏態（紅）</span>：99% 時間賺小錢，那 1% 尾部把你炸掉——多數「穩定獲利」的人其實在賣保險，直到爆掉那天。<br><span style="color:var(--sage)">正偏態（綠）</span>：天天小虧、靠罕見大行情賺回一切，數學穩健但心理極難執行。</p>
+      <p style="color:var(--ink);font-weight:500">Darvas 的「截斷虧損、讓利潤奔跑」正是綠線結構——這是兩本書最深的暗合。</p>
+    </div>
+  </div>
+
+  <!-- three parts -->
+  <div class="grid3">
+    <div class="card reveal">
+      <div class="pill-no sans">I</div>
+      <h3 class="sans">梭倫的警告</h3>
+      <div class="en">Solon · Skew &amp; Induction</div>
+      <p>「人生未到盡頭，不能稱之為幸福。」一個罕見的壞事件，能抹掉所有累積的好結果。歸納問題：過去數據證明不了未來不會出現從未發生過的事。</p>
+      <div class="metric">偏態 · 不對稱 · 黑天鵝的種子</div>
+    </div>
+    <div class="card reveal">
+      <div class="pill-no sans">II</div>
+      <h3 class="sans">打字機上的猴子</h3>
+      <div class="en">Survivorship Bias</div>
+      <p>無限隻猴子總有一隻打出《伊里亞德》，但牠沒有文學天賦。你看到的贏家全是倖存者，用同法爆掉的人已從樣本消失——「成功者共同特質」先天有缺陷。</p>
+      <div class="metric">另類歷史 · 歸因偏誤 · 後見之明</div>
+    </div>
+    <div class="card reveal">
+      <div class="pill-no sans">III</div>
+      <h3 class="sans">耳裡的蠟</h3>
+      <div class="en">Noise · Stoicism</div>
+      <p>奧德修斯封住耳朵抵抗賽蓮。檢視越頻繁，訊號裡的噪音占比越高、情緒成本越真實。面對隨機性的正確姿態是有尊嚴地承受，而非妄想消滅它。</p>
+      <div class="metric">噪音/訊號尺度 · 塞內卡 · 蒙田</div>
+    </div>
+  </div>
+
+  <!-- counter-challenges to the prior three books -->
+  <div class="reveal" style="margin-top:64px">
+    <div class="kicker" style="color:var(--clay);margin-bottom:8px">THE PROSECUTION · 對前三本的反方質疑</div>
+    <p class="lede" style="font-size:1.1rem;max-width:720px">Taleb 不是新增節點，而是給整個閉環裝上<em class="lit">懷疑論的底盤</em>。</p>
+  </div>
+  <div class="stages reveal" style="margin-top:34px">
+    <div class="stage" style="border-right:1px solid var(--line)">
+      <div class="s-no" style="color:var(--clay)">VS · WISEMAN</div>
+      <h4 class="sans">對「運氣因子」</h4>
+      <p>用同樣四原則卻倒霉一輩子的人在哪？對倖存樣本找模式，很容易把噪音當規律。</p>
+    </div>
+    <div class="stage" style="border-right:1px solid var(--line)">
+      <div class="s-no" style="color:var(--kraft)">WITH · DUKE</div>
+      <h4 class="sans">對「決策品質」</h4>
+      <p>同陣營但更激進。把 Duke 的「別用結果反推」用平行歷史數學化，並補上她少談的尾部與偏態。</p>
+    </div>
+    <div class="stage">
+      <div class="s-no" style="color:var(--slate)">VS · DARVAS</div>
+      <h4 class="sans">對「200 萬」</h4>
+      <p>停損結構是對的，但「我如何賺到 200 萬」這個書名本身，正是倖存者偏差的教科書案例。</p>
+    </div>
+  </div>
+
+  <div class="tension reveal">
+    <div class="tk">須誠實看待的局限 · Caveats</div>
+    <h4 class="sans">用他自己的尺量他自己</h4>
+    <p><b>診斷強、處方弱</b>——擅長指出「你被騙了」，卻給不出夠厚的「那該怎麼辦」，讀完容易陷入虛無。<b>語氣傲慢</b>、把對照角色寓言化。而最關鍵的：他自己也在倖存樣本裡——換個沒有大崩盤的十年，他可能也只是另一個「沒等到那次對」的人。「凡反駁我的成功都歸為運氣」近乎不可證偽。</p>
+  </div>
+</section>
+
 <!-- SYNTHESIS -->
 <section class="synth" id="synth">
   <div class="reveal">
-    <div class="kicker" style="margin-bottom:20px">SYNTHESIS · 三書合一</div>
-    <h2 class="chap-title sans" style="max-width:780px">三本書拼成一個<em class="lit">應對隨機性</em>的閉環</h2>
-    <p class="lede" style="margin-top:24px">你無法控制單一結果，但能控制過程、曝險與心態，長期下來偏移整條期望值曲線。</p>
+    <div class="kicker" style="margin-bottom:20px">SYNTHESIS · 四書合一</div>
+    <h2 class="chap-title sans" style="max-width:780px">三本給<em class="lit">方法</em>，第四本給<em class="lit">懷疑</em></h2>
+    <p class="lede" style="margin-top:24px">前三本拼成「機會察覺 → 決策品質 → 執行紀律 → 結果歸因」的閉環；Taleb 則給整個閉環裝上懷疑論底盤——你無法控制單一結果，但能控制過程、曝險與心態，並永遠記得你看到的世界是被倖存者偏差過濾過的。</p>
   </div>
 
   <div class="loopwrap reveal">
@@ -485,8 +582,8 @@ footer{padding:54px clamp(20px,8vw,140px);border-top:1px solid var(--line);displ
 </section>
 
 <footer>
-  <span>三冊讀記 · Reading Notes</span>
-  <span>Quality Investing · Darvas · The Luck Factor</span>
+  <span>四冊讀記 · Reading Notes</span>
+  <span>Quality · Darvas · Luck Factor · Fooled by Randomness</span>
   <span>在隨機性中尋找可控</span>
 </footer>
 
@@ -499,6 +596,21 @@ const io = new IntersectionObserver((entries)=>{
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 document.querySelectorAll('.grid3 .card, .quad .qcard, .stages .stage, .rule-row .rule').forEach((el,i)=>{
   el.style.transitionDelay = (i%4 * 0.08)+'s';
+});
+
+// Robust in-page navigation: works inside sandboxed iframes where raw #hash links are blocked.
+document.querySelectorAll('a[href^="#"]').forEach(link=>{
+  link.addEventListener('click', e=>{
+    const id = link.getAttribute('href').slice(1);
+    const target = document.getElementById(id);
+    if(!target) return;
+    e.preventDefault();
+    // make sure the target (and its inner reveals) are visible before/after scrolling
+    target.querySelectorAll('.reveal').forEach(r=>r.classList.add('in'));
+    if(target.classList.contains('reveal')) target.classList.add('in');
+    target.scrollIntoView({behavior:'smooth', block:'start'});
+    history.replaceState(null, '', '#'+id);
+  });
 });
 </script>
 </body>
